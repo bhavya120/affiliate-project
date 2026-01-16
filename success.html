@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmed | SherlockLife</title>
-    <script type="text/javascript" src="https://api.goaffpro.com/loader.js?shop=gmqnjwppgp"></script>
+    <title>Order Confirmed | Bhavya Store</title>
+    <script type="text/javascript" src="https://api.goaffpro.com/loader.js?shop=cruryyerfu"></script>
     
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
@@ -23,30 +23,33 @@
         <h1>Thank You For Your Order!</h1>
         <p>Your transaction has been processed successfully.</p>
         <p>Order Reference: <span class="order-id" id="display-order-id"></span></p>
-        <p>Affiliate commission has been recorded in the dashboard.</p>
+        <p style="color: #27ae60; font-weight: bold;">Commission tracked for Bhavya Store Dashboard.</p>
         <a href="index.html" class="home-link">← Return to Store</a>
     </div>
 
     <script>
-        // Generate random order ID
-        const randomOrderId = "ORD-" + Math.floor(Math.random() * 10000);
+        // Generate random order ID for the new store
+        const randomOrderId = "B-STORE-" + Math.floor(Math.random() * 99999);
         document.getElementById('display-order-id').innerText = randomOrderId;
 
-        // Data object for GoAffPro
+        // Data object with Sale Amount
         window.goaffpro_order = {
             number: randomOrderId,
             total: 500
         };
 
-        // Function to trigger conversion
+        // This function triggers the conversion signal to GoAffPro
         function triggerConversion() {
             if (typeof window.goaffproTrackConversion !== "undefined") {
                 window.goaffproTrackConversion(window.goaffpro_order);
-                console.log("Conversion successfully tracked for " + randomOrderId);
+                console.log("SUCCESS: Conversion tracked for " + randomOrderId);
+            } else {
+                // If script takes time to load, retry after 2 seconds
+                setTimeout(triggerConversion, 2000);
             }
         }
 
-        // Trigger on load
+        // Trigger when page is ready
         window.addEventListener('load', triggerConversion);
     </script>
 </body>
