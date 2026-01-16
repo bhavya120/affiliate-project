@@ -1,31 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Order Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | SherlockLife</title>
     <script type="text/javascript" src="https://api.goaffpro.com/loader.js?shop=gmqnjwppgp"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .success-container { background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+        .checkmark { font-size: 4rem; color: #27ae60; margin-bottom: 1rem; }
+        h1 { color: #2c3e50; }
+        p { color: #7f8c8d; }
+        .order-id { font-weight: bold; color: #3498db; }
+        .home-link { display: inline-block; margin-top: 2rem; text-decoration: none; color: #3498db; font-weight: bold; }
+    </style>
 </head>
 <body>
-    <h1>Order Successful!</h1>
-    <p>System ne sale record kar li hai.</p>
+
+    <div class="success-container">
+        <div class="checkmark">✔</div>
+        <h1>Thank You For Your Order!</h1>
+        <p>Your transaction has been processed successfully.</p>
+        <p>Order Reference: <span class="order-id" id="display-order-id"></span></p>
+        <p>Affiliate commission has been recorded in the dashboard.</p>
+        <a href="index.html" class="home-link">← Return to Store</a>
+    </div>
 
     <script>
+        // Generate random order ID
+        const randomOrderId = "ORD-" + Math.floor(Math.random() * 10000);
+        document.getElementById('display-order-id').innerText = randomOrderId;
+
+        // Data object for GoAffPro
         window.goaffpro_order = {
-            number: "ORD-" + Math.floor(Math.random() * 10000), // Random order number taaki har baar nayi sale dikhe
+            number: randomOrderId,
             total: 500
         };
 
-        // Ye function tabhi chalega jab loader.js load ho chuka ho
-        if (typeof window.goaffproTrackConversion !== "undefined") {
-            window.goaffproTrackConversion(window.goaffpro_order);
-            console.log("Sale data sent!");
-        } else {
-            // Backup agar script load hone mein time le
-            window.addEventListener('load', function() {
-                if(typeof window.goaffproTrackConversion !== "undefined") {
-                    window.goaffproTrackConversion(window.goaffpro_order);
-                }
-            });
+        // Function to trigger conversion
+        function triggerConversion() {
+            if (typeof window.goaffproTrackConversion !== "undefined") {
+                window.goaffproTrackConversion(window.goaffpro_order);
+                console.log("Conversion successfully tracked for " + randomOrderId);
+            }
         }
+
+        // Trigger on load
+        window.addEventListener('load', triggerConversion);
     </script>
 </body>
 </html>
