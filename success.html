@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Order Success</title>
+    <script type="text/javascript" src="https://api.goaffpro.com/loader.js?shop=gmqnjwppgp"></script>
 </head>
 <body>
     <h1>Order Successful!</h1>
@@ -10,12 +10,21 @@
 
     <script>
         window.goaffpro_order = {
-            number: "ORD-12345",
+            number: "ORD-" + Math.floor(Math.random() * 10000), // Random order number taaki har baar nayi sale dikhe
             total: 500
         };
 
+        // Ye function tabhi chalega jab loader.js load ho chuka ho
         if (typeof window.goaffproTrackConversion !== "undefined") {
             window.goaffproTrackConversion(window.goaffpro_order);
+            console.log("Sale data sent!");
+        } else {
+            // Backup agar script load hone mein time le
+            window.addEventListener('load', function() {
+                if(typeof window.goaffproTrackConversion !== "undefined") {
+                    window.goaffproTrackConversion(window.goaffpro_order);
+                }
+            });
         }
     </script>
 </body>
